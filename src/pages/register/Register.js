@@ -1,41 +1,36 @@
-import { useContext } from 'react';
-import { useState } from 'react'
+
+import { useState, useContext, CSSProperties } from 'react'
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import "./login.css";
+import "./register.css";
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../components/spinner/Spinner';
 
 
-const Login = () => {
+const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
+    email: undefined,
   });
-  
 
+  const [susseces, setSusseces] = useState(false)
   const { loading, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
   const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("http://localhost:3300/api/auth/login", credentials);
+      const res = await axios.post("http://localhost:3300/api/auth/register", credentials);
 
       // Verificamos si la respuesta contiene el token y los detalles del usuario
-      if (res.data && res.data.token) {
-        const { token, ...otherDetails } = res.data; // Separar token y detalles del usuario
+      console.log(res.data);
+      
+      setSusseces(!susseces);
 
-        // Guardamos el token en sesion Storage
-        sessionStorage.setItem("access_token", token);
-        
-        // Enviamos los detalles del usuario al contexto de autenticación
-        dispatch({ type: "LOGIN_SUCCESS", payload: otherDetails });
-
-        navigate("/");
-      }
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+
     }
   };
 
@@ -45,11 +40,25 @@ const Login = () => {
 
   return (
     <div className="login">
+      {susseces ? (
+        <>
+          <Spinner message={"Please....wait to be verified"}></Spinner>
+
+        </>
+      ) : (
+
         <div className="lContainer">
           <input
             type="text"
             placeholder="username"
             id="username"
+            onChange={handleChange}
+            className="lInput"
+          />
+          <input
+            type="email"
+            placeholder="email"
+            id="email"
             onChange={handleChange}
             className="lInput"
           />
@@ -60,16 +69,17 @@ const Login = () => {
             onChange={handleChange}
             className="lInput"
           />
-          <span onClick={e => { navigate("/register")}}>Sign in</span>
+          <span onClick={e => { navigate("/login") }}>Log in</span>
           <button disabled={loading} onClick={handleClick} className="lButton">
-            Login
+            Register
           </button>
 
           {error && <span>{error.message}</span>}
         </div>
-    
+      )}
+
     </div>
   );
 };
 
-export default Login;
+export default Register;

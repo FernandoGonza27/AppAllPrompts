@@ -15,11 +15,6 @@ export default function Navbar() {
                     <span className="logo">{user.username}</span>
                 </Link>
                 <div className="navItems">
-                    <button className="navButton">
-                        <Link to="/prompts" style={{ color: "inherit", textDecoration: "none" }}>
-                            <span className="logo">Prompts</span>
-                        </Link>
-                    </button>
                     {user.isAdmin ? (
                         <button className="navButton">
                             <Link to="/users" style={{ color: "inherit", textDecoration: "none" }}>
