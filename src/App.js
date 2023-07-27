@@ -1,6 +1,5 @@
 
-import { Container, Col, Row } from "react-bootstrap";
-import Register from "./components/Register";
+
 import Error from "./pages/error/error";
 import Home from "./pages/home/home";
 import {
@@ -8,18 +7,41 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import Admin from "./pages/admin/Admin";
+import ExecutePrompts from "./pages/prompts/execute/executeprompts";
+import UpdatePrompts from "./pages/prompts/update/updateprompts";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
-    errorElement: <Error/>   
+    errorElement: <Error/>,
+    children: [
+      {
+        path: "execute",
+        element: < ExecutePrompts/>,
+      },
+      {
+        path: "update",
+        element: <UpdatePrompts/>,
+      },
+      {
+        path: "create",
+        element: <UpdatePrompts/>,
+      },
+    ]
   },
   {
     path: "/login",
     element: <Login></Login>,
     errorElement: <Error/>   
   },
+  {
+    path: "/register",
+    element: <Register></Register>,
+    errorElement: <Error/>   
+  },
+  
   {
     path: "/users",
     element: <Admin></Admin>,
