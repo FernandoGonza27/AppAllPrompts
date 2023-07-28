@@ -76,8 +76,8 @@ const DataTableUsers = () => {
       {loading ? ("Loading please wait") : (
         <div>
           <div className="container">
-            <h2>Table of Courses</h2>
-            <Link to="/create"><button className="btn btn-primary">Add Course</button></Link>
+            <h2>Table of users</h2>
+            <Link to="/create"><button className="btn btn-primary">Add users</button></Link>
             <div className="mt-3">
               <input type="text" className="form-control" placeholder="Search.." name="search" onChange={handelInput} />
             </div>

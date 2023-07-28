@@ -9,8 +9,9 @@ import {
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Admin from "./pages/admin/Admin";
-import ExecutePrompts from "./pages/prompts/execute/executeprompts";
-import UpdatePrompts from "./pages/prompts/update/updateprompts";
+import ExecutePrompts from "./components/prompts/execute/ExecutePrompts";
+import UpdatePrompts from "./components/prompts/update/UpdatePrompts";
+import CreatePrompts from "./components/prompts/create/CreatePrompts";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,16 +19,16 @@ const router = createBrowserRouter([
     errorElement: <Error/>,
     children: [
       {
-        path: "execute",
+        path: "execute/:id",
         element: < ExecutePrompts/>,
       },
       {
-        path: "update",
+        path: "/update/:id",
         element: <UpdatePrompts/>,
       },
       {
         path: "create",
-        element: <UpdatePrompts/>,
+        element: <CreatePrompts/>,
       },
     ]
   },
